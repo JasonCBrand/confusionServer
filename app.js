@@ -4,13 +4,14 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var debug = require('debug');
+const mongoose = require('mongoose');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var dishRouter = require('./routes/dishRouter');
 var promotionsRouter = require('./routes/promotionsRouter');
 var leaderRouter = require('./routes/leaderRouter');
-const mongoose = require('mongoose');
+
 
 const Dishes = require('./models/dishes');
 
@@ -38,7 +39,7 @@ app.use('/promotions',promotionsRouter);
 app.use('/leaders',leaderRouter);
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-debug('test');
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
