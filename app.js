@@ -3,13 +3,23 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
+var debug = require('debug');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var dishRouter = require('./routes/dishRouter');
-var promoRouter = require('./routes/promoRouter');
+var promotionsRouter = require('./routes/promotionsRouter');
 var leaderRouter = require('./routes/leaderRouter');
+const mongoose = require('mongoose');
+
+const Dishes = require('./models/dishes');
+
+const url = 'mongodb://localhost:27017/conFusion';
+const connect = mongoose.connect(url);
+
+connect.then((db) => {
+    console.log("Connected correctly to server");
+}, (err) => { console.log(err); });
 
 var app = express();
 
@@ -24,11 +34,11 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/dishes',dishRouter);
-app.use('/promotions',promoRouter);
+app.use('/promotions',promotionsRouter);
 app.use('/leaders',leaderRouter);
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-
+debug('test');
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
