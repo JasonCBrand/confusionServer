@@ -57,10 +57,10 @@ function auth (req, res, next) {
   }
 }
 
-app.use(auth);
+//app.use(auth);
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/dishes',dishRouter);
+app.use('/dishes', auth, dishRouter);
 app.use('/promotions',promotionsRouter);
 app.use('/leaders',leaderRouter);
 app.use('/', indexRouter);
